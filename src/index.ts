@@ -1,6 +1,5 @@
-import { ObjectId } from "mongodb";
-import { collections, connectToDatabase } from "./data/services/database.service";
-import Viewer from "./data/models/viewer";
+import { connectToDatabase } from "./data/services/database.service";
+import GetViewers from "./commands/getCommand"
 
 console.log('starting app');
 const tmi = require('tmi.js');
@@ -25,17 +24,5 @@ async function CommandManagement(message: string, tags: any) {
     console.log('commands management');
     if (message.startsWith('!get')) {
         await GetViewers();
-    }
-}
-
-async function GetViewers() {
-    console.log('get');
-    try {
-        const viewers = (await collections.Viewers?.find().toArray()) as Viewer[];
-        viewers.forEach(viewer => {
-            console.log(`username: ${viewer.UserName} and id: ${viewer._id}`)
-        });
-    } catch (error) {
-        console.log(`error in get ${error}`);
     }
 }
