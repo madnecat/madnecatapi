@@ -1,1 +1,4 @@
+# ignore build artifacts
 build/*
+# ignore database configuration files
+.env
