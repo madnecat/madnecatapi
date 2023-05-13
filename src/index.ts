@@ -11,11 +11,14 @@ const client = new tmi.Client({
 
 client.connect();
 
-client.on('message', async (channel: string, tags: any, message: string, self: any) => {
-    console.log(`${tags['display-name']}: ${message}`);
-    if (message.startsWith('!')) {
-        await CommandManagement(message, tags);
-    }
+connectToDatabase().then(async () => {
+    client.on('message', async (channel: string, tags: any, message: string, self: any) => {
+        console.log(`${tags['display-name']}: ${message}`);
+        if (message.startsWith('!')) {
+            await CommandManagement(message, tags);
+        }
+    });
+    console.log('app started successfully');
 });
 
 async function CommandManagement(message: string, tags: any) {
@@ -28,11 +31,9 @@ async function CommandManagement(message: string, tags: any) {
 async function GetViewers() {
     console.log('get');
     try {
-        connectToDatabase().then(async () => {
-            const viewers = (await collections.Viewers?.find().toArray()) as Viewer[];
-            viewers.forEach(viewer => {
-                console.log(`username: ${viewer.UserName} and id: ${viewer._id}`)
-            });
+        const viewers = (await collections.Viewers?.find().toArray()) as Viewer[];
+        viewers.forEach(viewer => {
+            console.log(`username: ${viewer.UserName} and id: ${viewer._id}`)
         });
     } catch (error) {
         console.log(`error in get ${error}`);
