@@ -1,5 +1,6 @@
 import { connectToDatabase } from "./data/services/database.service";
 import GetViewers from "./commands/getCommand"
+import RegisterViewer from "./commands/registerCommand"
 
 console.log('starting app');
 const tmi = require('tmi.js');
@@ -9,7 +10,6 @@ const client = new tmi.Client({
 });
 
 client.connect();
-
 connectToDatabase().then(async () => {
     client.on('message', async (channel: string, tags: any, message: string, self: any) => {
         console.log(`${tags['display-name']}: ${message}`);
@@ -24,5 +24,8 @@ async function CommandManagement(message: string, tags: any) {
     console.log('commands management');
     if (message.startsWith('!get')) {
         await GetViewers();
+    }
+    if (message.startsWith('!register')) {
+        await RegisterViewer(tags['display-name']);
     }
 }
