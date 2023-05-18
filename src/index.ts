@@ -1,3 +1,4 @@
+import * as dotenv from "dotenv";
 import { connectToDatabase } from "./data/services/database.service";
 import GetViewers from "./commands/getCommand"
 import RegisterViewer from "./commands/registerCommand"
@@ -5,8 +6,17 @@ import RegisterViewer from "./commands/registerCommand"
 console.log('starting app');
 const tmi = require('tmi.js');
 
+// const client = new tmi.Client({
+//     channels: ['madnecat']
+// });
+
 const client = new tmi.Client({
-    channels: ['madnecat']
+	options: { debug: true },
+	identity: {
+		username: 'madnecatbot',
+		password: process.env.TWITCH_TOKEN
+	},
+	channels: [ 'madnecat' ]
 });
 
 client.connect();

@@ -23,3 +23,4 @@ Creer un fichier .env avec les configurations:
 
 DB_CONN_STRING=""
 DB_NAME=""
+TWITCH_TOKEN=""
