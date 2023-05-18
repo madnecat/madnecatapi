@@ -1,41 +1,48 @@
 import * as dotenv from "dotenv";
-import { connectToDatabase } from "./data/services/database.service";
+import { connectToDatabase } from "./data/services/database.service"; 
 import GetViewers from "./commands/getCommand"
 import RegisterViewer from "./commands/registerCommand"
 
 console.log('starting app');
+dotenv.config();
 const tmi = require('tmi.js');
 
-// const client = new tmi.Client({
-//     channels: ['madnecat']
-// });
+try {
+    SetUpTwitchListener();
+} catch (error) {
+    console.log(`app crashed ${error}`);
+}
 
-const client = new tmi.Client({
-	options: { debug: true },
-	identity: {
-		username: 'madnecatbot',
-		password: process.env.TWITCH_TOKEN
-	},
-	channels: [ 'madnecat' ]
-});
-
-client.connect();
-connectToDatabase().then(async () => {
-    client.on('message', async (channel: string, tags: any, message: string, self: any) => {
-        console.log(`${tags['display-name']}: ${message}`);
-        if (message.startsWith('!')) {
-            await CommandManagement(message, tags);
-        }
+async function SetUpTwitchListener() {
+    const client = new tmi.Client({
+        options: { debug: true },
+        identity: {
+            username: 'madnecatbot',
+            password: `oauth:${process.env.TWITCH_OAUTH_TOKEN}`
+        },
+        channels: ['madnecat']
     });
-    console.log('app started successfully');
-});
+    client.connect();
+    connectToDatabase().then(async () => {
+        client.on('message', async (channel: string, tags: any, message: string, self: any) => {
+            console.log(`${tags['display-name']}: ${message}`);
+            if (message.startsWith('!')) {
+                await CommandManagement(message, tags, client, channel);
+            }
+        });
+        console.log('app started successfully');
+    });
+}
 
-async function CommandManagement(message: string, tags: any) {
+async function CommandManagement(message: string, tags: any, client: any, channel: string) {
     console.log('commands management');
     if (message.startsWith('!get')) {
         await GetViewers();
     }
     if (message.startsWith('!register')) {
         await RegisterViewer(tags['display-name']);
+    }
+    if (message.startsWith('!hello')) {
+        client.say(channel, `@${tags.username}, heya!`);
     }
 }

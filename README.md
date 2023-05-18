@@ -4,6 +4,10 @@ To contribute, please create a pull request with a description of the change and
 Pour contribuer, merci de créer une pull request avec une description de la fonctionnalité ainsi que quelques tags.
 
 ## Compilation
+To install npm packages:
+Pour installer les paquets npm:
+```npm install```
+
 To build:
 Pour compiler:
 ```npm run build```
