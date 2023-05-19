@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import { connectToDatabase } from "./data/services/database.service"; 
 import GetViewers from "./commands/getCommand"
 import RegisterViewer from "./commands/registerCommand"
+import { Analytics } from '@vercel/analytics/react';
 
 console.log('starting app');
 dotenv.config();
