@@ -6,7 +6,7 @@ export default async function GetViewers() {
     try {
         const viewers = (await collections.Viewers?.find().toArray()) as Viewer[];
         viewers.forEach(viewer => {
-            console.log(`username: ${viewer.UserName} and id: ${viewer._id}`)
+            console.log(`username: ${viewer.userName} and id: ${viewer._id}`)
         });
     } catch (error) {
         console.log(`error in get ${error}`);
