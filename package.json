@@ -2,11 +2,11 @@
   "name": "madnecatapi",
   "version": "1.0.0",
   "description": "To contribute, please create a pull request with a description of the change and a few tags.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start:dev": "npx nodemon",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js",
+    "start": "npm run build && node build/server.js",
     "keepstart": "npm run build && npm run start:dev"
   },
   "keywords": [],
