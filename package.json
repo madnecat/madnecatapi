@@ -7,7 +7,7 @@
     "start:dev": "npx nodemon",
     "build": "tsc && cp ./src/index.html ./build/index.html",
     "buildlocal": "rimraf ./build && tsc && cp ./src/index.html ./build/index.html",
-    "start": "npm run build && node build/server.js",
+    "start": "node build/server.js",
     "keepstart": "npm run build && npm run start:dev"
   },
   "keywords": [],
