@@ -10,7 +10,7 @@ Pour installer les paquets npm:
 
 To build:
 Pour compiler:
-```npm run build```
+```npm run buildlocal```
 
 To build, run and hot reload:
 Pour compiler, lancer, et recompiler à la volée:

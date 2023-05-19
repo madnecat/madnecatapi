@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start:dev": "npx nodemon",
-    "build": "rimraf ./build && tsc && cp ./src/index.html ./build/index.html",
+    "build": "tsc && cp ./src/index.html ./build/index.html",
+    "buildlocal": "rimraf ./build && tsc && cp ./src/index.html ./build/index.html",
     "start": "npm run build && node build/server.js",
     "keepstart": "npm run build && npm run start:dev"
   },
