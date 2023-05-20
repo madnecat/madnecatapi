@@ -4,7 +4,7 @@ import Viewer from "../data/models/viewer";
 export default async function RegisterViewer(userName:string) {
     console.log(`register ${userName}`);
     try {
-        var viewer = (await collections.Viewers?.findOne({'UserName':`${userName}`})) as Viewer;
+        var viewer = (await collections.Viewers?.findOne({'userName':`${userName}`})) as Viewer;
         if(viewer != null) {
             console.log(`${userName} already exists, skipping creation`);
             return;
