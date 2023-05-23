@@ -3,7 +3,6 @@ import { ObjectId } from "mongodb";
 export class Viewer{
     public nbMessages: number;
     public dateCreated: Date;
-    
     constructor(public userName: string,
         public _id: ObjectId | undefined) {
         if(_id == undefined){

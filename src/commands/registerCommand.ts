@@ -1,6 +1,7 @@
 import { collections } from "../data/services/database.service";
 import {Viewer} from "../data/models/viewer";
 
+
 export default async function RegisterViewer(userName:string) {
     console.log(`register ${userName}`);
     try {
