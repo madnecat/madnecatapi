@@ -1,7 +1,6 @@
 import * as dotenv from "dotenv";
 import * as mongoDB from "mongodb";
-import Viewer from "../models/viewer";
-
+import {Viewer} from "../models/viewer";
 export const collections: { Viewers?: mongoDB.Collection<Viewer> } = {}
 
 export async function connectToDatabase () {
