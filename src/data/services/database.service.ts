@@ -1,6 +1,6 @@
-import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
-import Viewer from "../models/viewer";
+import * as mongoDB from "mongodb";
+import {Viewer} from "../models/viewer";
 
 export const collections: { Viewers?: mongoDB.Collection<Viewer> } = {}
 

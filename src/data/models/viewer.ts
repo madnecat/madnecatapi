@@ -1,13 +1,17 @@
 import { ObjectId } from "mongodb";
-import IDataModel from "./IDataModel";
 
-export default class Viewer implements IDataModel{
-    UserName: string;
-    _id: ObjectId;
-    constructor(public userName: string, 
-        public id: ObjectId) {
-            this.UserName = userName;
-            this._id = id;
+export class Viewer{
+    public nbMessages: number;
+    public dateCreated: Date;
+    
+    constructor(public userName: string,
+        public _id: ObjectId | undefined) {
+        if(_id == undefined){
+            this._id = new ObjectId();
+        } else {
+            this._id = _id;
         }
+        this.nbMessages = 0;
+        this.dateCreated = new Date()
+    }
 }
-
