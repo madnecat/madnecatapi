@@ -6,9 +6,10 @@
   "scripts": {
     "start:dev": "npx nodemon",
     "build": "tsc && cp ./src/index.html ./build/index.html",
-    "buildlocal": "rimraf ./build && tsc && cp ./src/index.html ./build/index.html",
+    "buildlocal": "npm run clear && tsc && cp ./src/index.html ./build/index.html",
     "start": "node build/server.js",
-    "keepstart": "npm run build && npm run start:dev"
+    "keepstart": "npm run build && npm run start:dev",
+    "clear": "rimraf ./build"
   },
   "keywords": [],
   "author": "",
