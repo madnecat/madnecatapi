@@ -25,15 +25,15 @@ async function SetUpTwitchListener() {
         connection: { port: process.env.PORT || 443 },
         channels: ['madnecat']
     });
-    // client.connect();
-    // client.on('message', async (channel: string, tags: any, message: string, self: any) => {
-    //     console.log(`${tags['display-name']}: ${message}`);
-    //     await connectToDatabase();
-    //     await MessageManagement(message, tags, client, channel);
-    //     if (message.startsWith('!')) {
-    //         await CommandManagement(message, tags, client, channel);
-    //     }
-    // });
+    client.connect();
+    client.on('message', async (channel: string, tags: any, message: string, self: any) => {
+        console.log(`${tags['display-name']}: ${message}`);
+        await connectToDatabase();
+        await MessageManagement(message, tags, client, channel);
+        if (message.startsWith('!')) {
+            await CommandManagement(message, tags, client, channel);
+        }
+    });
     console.log('app started successfully');
 }
 
