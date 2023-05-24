@@ -1,8 +1,8 @@
 import * as dotenv from "dotenv";
-import { connectToDatabase } from "./data/services/database.service"; 
-import GetViewers from "./commands/getCommand"
+import { connectToDatabase } from "./data/services/database.service";
 import RegisterViewer from "./commands/registerCommand"
-import { Analytics } from '@vercel/analytics/react';
+import GetXp from "./commands/getXpCommand"
+import IncrementMessageCounter from "./commands/incrementMessageCounterCommand"
 
 console.log('starting app');
 dotenv.config();
@@ -29,6 +29,7 @@ async function SetUpTwitchListener() {
     connectToDatabase().then(async () => {
         client.on('message', async (channel: string, tags: any, message: string, self: any) => {
             console.log(`${tags['display-name']}: ${message}`);
+            await MessageManagement(message, tags, client, channel);
             if (message.startsWith('!')) {
                 await CommandManagement(message, tags, client, channel);
             }
@@ -39,13 +40,17 @@ async function SetUpTwitchListener() {
 
 async function CommandManagement(message: string, tags: any, client: any, channel: string) {
     console.log('commands management');
-    if (message.startsWith('!get')) {
-        await GetViewers();
-    }
-    if (message.startsWith('!register')) {
-        await RegisterViewer(tags['display-name']);
-    }
     if (message.startsWith('!hello')) {
-        client.say(channel, `@${tags.username}, heya!`);
+        client.say(channel, `@${tags['display-name']}, heya! HeyGuys`);
     }
+    if (message.startsWith('!xp')) {
+        var xp = await GetXp(tags['display-name']);
+        client.say(channel, `@${tags['display-name']}, tu as ${xp}xp Kreygasm`);
+    }
+}
+
+async function MessageManagement(message: string, tags: any, client: any, channel: string) {
+    console.log('message management management');
+    await RegisterViewer(tags['display-name']);
+    await IncrementMessageCounter(tags['display-name']);
 }
