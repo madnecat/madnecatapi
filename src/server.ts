@@ -15,8 +15,7 @@ try {
 }
 
 async function SetUpTwitchListener() {
-    var port = process.env.PORT || 443;
-    console.log(`configuring client to listen to port ${port}`);
+    //var port = process.env.PORT || 443;
     const client = new tmi.Client({
         options: { debug: true },
         identity: {
@@ -24,13 +23,18 @@ async function SetUpTwitchListener() {
             password: `oauth:${process.env.TWITCH_OAUTH_TOKEN}`
         },
         connection: { 
-            port: port,
-            reconnect: true
+            //port: port,
+            reconnect: true,
+            secure: true
         },
         channels: ['madnecat']
     });
-    client.connect();
-    console.log(`client configured to listen to port ${client.opts.connection.port}`);
+    client.connect().then(() => {
+        console.info("Connected to Chat")
+    })
+    .catch((e:any) => {
+        console.error(`Failed to connect to Twitch Chat: ${e}`);
+    });
     client.on('message', async (channel: string, tags: any, message: string, self: any) => {
         console.log(`${tags['display-name']}: ${message}`);
         await connectToDatabase();
@@ -39,7 +43,6 @@ async function SetUpTwitchListener() {
             await CommandManagement(message, tags, client, channel);
         }
     });
-    console.log('app started successfully');
 }
 
 async function CommandManagement(message: string, tags: any, client: any, channel: string) {
