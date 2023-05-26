@@ -15,15 +15,22 @@ try {
 }
 
 async function SetUpTwitchListener() {
+    var port = process.env.PORT || 443;
+    console.log(`configuring client to listen to port ${port}`);
     const client = new tmi.Client({
         options: { debug: true },
         identity: {
             username: 'madnecatbot',
             password: `oauth:${process.env.TWITCH_OAUTH_TOKEN}`
         },
+        connection: { 
+            port: port,
+            reconnect: true
+        },
         channels: ['madnecat']
     });
     client.connect();
+    console.log(`client configured to listen to port ${client.opts.connection.port}`);
     client.on('message', async (channel: string, tags: any, message: string, self: any) => {
         console.log(`${tags['display-name']}: ${message}`);
         await connectToDatabase();
