@@ -3,8 +3,10 @@ import { ObjectId } from "mongodb";
 export class Viewer{
     public nbMessages: number;
     public dateCreated: Date;
-    constructor(public userName: string,
-        public _id: ObjectId | undefined) {
+    public userName: string;
+    public _id: ObjectId | undefined;
+
+    constructor(userName: string, _id: ObjectId | undefined) {
         if(_id == undefined){
             this._id = new ObjectId();
         } else {
@@ -12,5 +14,6 @@ export class Viewer{
         }
         this.nbMessages = 0;
         this.dateCreated = new Date()
+        this.userName = userName;
     }
 }

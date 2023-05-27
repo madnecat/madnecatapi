@@ -15,7 +15,6 @@ try {
 }
 
 async function SetUpTwitchListener() {
-    //var port = process.env.PORT || 443;
     const client = new tmi.Client({
         options: { debug: true },
         identity: {
@@ -23,7 +22,6 @@ async function SetUpTwitchListener() {
             password: `oauth:${process.env.TWITCH_OAUTH_TOKEN}`
         },
         connection: { 
-            //port: port,
             reconnect: true,
             secure: true
         },
