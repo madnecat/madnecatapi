@@ -7,6 +7,7 @@ import IncrementMessageCounter from "./commands/incrementMessageCounterCommand"
 console.log('starting app');
 dotenv.config();
 const tmi = require('tmi.js');
+const _botName = 'madnecatbot';
 
 try {
     SetUpTwitchListener();
@@ -34,6 +35,9 @@ async function SetUpTwitchListener() {
         console.error(`Failed to connect to Twitch Chat: ${e}`);
     });
     client.on('message', async (channel: string, tags: any, message: string, self: any) => {
+        if(tags['display-name'] == _botName) {
+            return;
+        }
         console.log(`${tags['display-name']}: ${message}`);
         await connectToDatabase();
         await MessageManagement(message, tags, client, channel);
