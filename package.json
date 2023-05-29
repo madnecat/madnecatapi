@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start:dev": "npx nodemon",
-    "build": "tsc && cp ./src/index.html ./build/index.html",
+    "build": "tsc",
     "buildlocal": "npm run clear && tsc",
     "start": "node build/server.js",
     "keepstart": "npm run build && npm run start:dev",

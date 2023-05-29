@@ -1,6 +1,6 @@
 import {Viewer} from "../data/models/viewer";
 
-export default async function RegisterViewer(userName:string) {
+export default async function registerViewer(userName:string) {
     try {
         var viewer = await Viewer.findOne().where('userName').equals(userName);
         if(viewer != null) {

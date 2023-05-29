@@ -1,16 +1,17 @@
-import { ObjectId } from "mongodb";
 import { Schema, Model, model } from "mongoose"
+import { IViewerLevel } from "./viewerLevel";
 
-interface ILevel {
-    _id: ObjectId;
+export interface ILevel {
+    _id: Schema.Types.ObjectId;
     requiredXp: number;
     level: number;
+    viewerLevels: IViewerLevel[];
 }
 
 //schema
 const levelSchema = new Schema<ILevel, LevelModel, ILevelMethods>({
     _id: {
-        type: ObjectId,
+        type: Schema.Types.ObjectId,
         required: true
     },
     requiredXp: {
@@ -21,6 +22,12 @@ const levelSchema = new Schema<ILevel, LevelModel, ILevelMethods>({
         type: Number,
         required: true
     }
+});
+
+levelSchema.virtual('viewerLevels', {
+    ref: 'viewerlevels',
+    localField: '_id',
+    foreignField: 'level'
 });
 
 interface ILevelMethods {

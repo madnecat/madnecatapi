@@ -1,6 +1,6 @@
 import {Viewer} from "../data/models/viewer";
 
-export default async function IncrementMessageCounter(userName:string) {
+export default async function incrementMessageCounter(userName:string) {
     try {
         await Viewer.updateOne({'userName':`${userName}`}, {$inc: {"nbMessages": 1}});
     } catch (error) {

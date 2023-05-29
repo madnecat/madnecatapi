@@ -1,21 +1,24 @@
-import { ObjectId } from "mongodb";
 import { Schema, Model, model } from "mongoose"
+import { ILevel } from "./level";
+import { IViewer } from "./viewer";
 
-interface IViewerLevel {
-    viewerId: ObjectId;
-    levelId: ObjectId;
+export interface IViewerLevel {
+    viewer: IViewer;
+    level: ILevel;
     dateCreated: Date
 }
 
 //schema
 const ViewerLevelSchema = new Schema<IViewerLevel, ViewerLevelModel, IViewerLevelMethods>({
-    viewerId: {
-        type: ObjectId,
-        required: true
+    viewer: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'viewers'
     },
-    levelId: {
-        type: ObjectId,
-        required: true
+    level: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'levels'
     },
     dateCreated: {
         type: Date,
@@ -29,4 +32,4 @@ interface IViewerLevelMethods {
 type ViewerLevelModel = Model<IViewerLevel, {}, IViewerLevelMethods>;
 
 
-export const ViewerLevel = model<IViewerLevel, ViewerLevelModel>('viewerLevels', ViewerLevelSchema);
+export const ViewerLevel = model<IViewerLevel, ViewerLevelModel>('viewerlevels', ViewerLevelSchema);
