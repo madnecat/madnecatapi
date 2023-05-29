@@ -1,5 +1,25 @@
 # ignore build artifacts
-build/*
-node_modules/*
+build/
+node_modules/
+*.bin\*
+*.bin/*
+
 # ignore database configuration files
 .env
+
+#################
+## Windows detritus
+#################
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac crap
+.DS_Store
