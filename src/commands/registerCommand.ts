@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import {Viewer} from "../data/models/viewer";
 
 export default async function registerViewer(userName:string) {
@@ -12,6 +13,7 @@ export default async function registerViewer(userName:string) {
             return;
         }
         viewer = new Viewer({
+            _id: new ObjectId(),
             userName: userName, 
             dateCreated: new Date(),
             nbMessages: 0
