@@ -1,6 +1,8 @@
+import { ObjectId } from "mongodb";
 import { Schema, Model, model } from "mongoose"
 
 interface IViewer {
+    _id: ObjectId;
     nbMessages?: number;
     dateCreated?: Date;
     userName: string;
@@ -8,6 +10,10 @@ interface IViewer {
 
 //schema
 const viewerSchema = new Schema<IViewer, ViewerModel, IViewerMethods>({
+    _id: {
+        type: ObjectId,
+        required: true
+    },
     userName: {
         type: String,
         required: true,
@@ -38,4 +44,4 @@ viewerSchema.method('upgrade', function upgrade(){
     }
 })
 
-export const Viewer = model<IViewer, ViewerModel>('Viewers', viewerSchema);
+export const Viewer = model<IViewer, ViewerModel>('viewers', viewerSchema);
