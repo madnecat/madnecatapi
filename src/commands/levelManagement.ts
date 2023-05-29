@@ -1,6 +1,6 @@
 import {Viewer} from "../data/models/viewer";
 import {Level} from "../data/models/level";
-import {ViewerLevel} from "../data/models/viewerLevel";
+import { ViewerLevel } from "../data/models/viewerLevel";
 
 export default async function manageLevels(userName:string, client: any, channel: string){
     try {
