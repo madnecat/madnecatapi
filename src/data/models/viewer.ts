@@ -1,5 +1,6 @@
 import { Schema, Model, model } from "mongoose"
 import { IViewerLevel } from "./viewerLevel";
+import { IViewerClass } from "./viewerClass";
 
 export interface IViewer {
     _id: Schema.Types.ObjectId;
@@ -7,6 +8,8 @@ export interface IViewer {
     dateCreated?: Date;
     userName: string;
     viewerLevels: IViewerLevel[];
+    twitchId: number;
+    viewerClasses: IViewerClass[];
 }
 
 //schema
@@ -27,6 +30,10 @@ const viewerSchema = new Schema<IViewer, ViewerModel, IViewerMethods>({
     dateCreated: {
         type: Date,
         required: false
+    },
+    twitchId: {
+        type: Number,
+        required: true
     }
 });
 
@@ -35,19 +42,24 @@ viewerSchema.virtual('viewerLevels', {
     localField: '_id',
     foreignField: 'viewer'
 });
+viewerSchema.virtual('viewerClasses', {
+    ref: 'viewerclasses',
+    localField: '_id',
+    foreignField: 'viewer'
+});
 
 interface IViewerMethods {
-    upgrade(): string;
+    upgrade(twitchId:number): string;
 }
 
 type ViewerModel = Model<IViewer, {}, IViewerMethods>;
 
-viewerSchema.method('upgrade', function upgrade() {
-    if (this.nbMessages == undefined) {
-        this.nbMessages = 0;
+viewerSchema.method('upgrade', function upgrade(twitchId:number) {
+    if(this.twitchId == 0) {
+        this.twitchId = twitchId
     }
-    if (this.dateCreated == undefined) {
-        this.dateCreated = new Date()
+    if(this.viewerClasses == null) {
+
     }
 })
 

@@ -1,11 +1,13 @@
 import { Schema, Model, model } from "mongoose"
 import { IViewerLevel } from "./viewerLevel";
+import { IClass } from "./class";
 
 export interface ILevel {
     _id: Schema.Types.ObjectId;
     requiredXp: number;
     level: number;
     viewerLevels: IViewerLevel[];
+    class?: IClass
 }
 
 //schema
@@ -21,7 +23,12 @@ const levelSchema = new Schema<ILevel, LevelModel, ILevelMethods>({
     level: {
         type: Number,
         required: true
-    }
+    },
+    class: {
+        type: Schema.Types.ObjectId,
+        required: false,
+        ref: 'classes'
+    },
 });
 
 levelSchema.virtual('viewerLevels', {

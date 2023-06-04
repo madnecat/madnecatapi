@@ -9,7 +9,7 @@ export interface IViewerLevel {
 }
 
 //schema
-const ViewerLevelSchema = new Schema<IViewerLevel, ViewerLevelModel, IViewerLevelMethods>({
+const viewerLevelSchema = new Schema<IViewerLevel, ViewerLevelModel, IViewerLevelMethods>({
     viewer: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -32,4 +32,4 @@ interface IViewerLevelMethods {
 type ViewerLevelModel = Model<IViewerLevel, {}, IViewerLevelMethods>;
 
 
-export const ViewerLevel = model<IViewerLevel, ViewerLevelModel>('viewerlevels', ViewerLevelSchema);
+export const ViewerLevel = model<IViewerLevel, ViewerLevelModel>('viewerlevels', viewerLevelSchema);
