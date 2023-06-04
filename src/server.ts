@@ -51,8 +51,11 @@ async function SetUpTwitchListener() {
 }
 
 async function commandManagement(message: string, tags: any, client: any, channel: string) {
-    if (message.startsWith('!hello')) {
-        client.say(channel, `@${tags['display-name']}, heya! HeyGuys`);
+    if (message.startsWith('!info')) {
+        client.say(channel, `Je suis le bot de la chaîne, développé par madnecat.
+        En envoyant des messages, tu gènères des points d'expérience, et montes de niveau au fur et à mesure. 
+        Tu as aussi une classe, pour laquelle tu montes de niveau, qui te permettra d'effectuer des actions sur le stream.
+        Les actions sont encore en cours de développement, ca arrive très vite! CurseLit`);
     }
     if (message.startsWith('!xp')) {
         await getXp(tags['user-id'], tags['display-name'], client, channel);
