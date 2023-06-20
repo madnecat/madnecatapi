@@ -1,5 +1,6 @@
 enum ClassName {
-    voleur = 1
+    voleur,
+    paladdin
 }
 
 export default ClassName;

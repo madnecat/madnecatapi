@@ -8,10 +8,12 @@ export default async function registerViewer(twitchId: number, userName:string) 
     try {
         var viewer = await manageViewer();
         if(viewer.viewerClasses == null || viewer.viewerClasses.length == 0){
-            var classId: number = Math.floor(Math.random() * Object.keys(ClassName).length);
+            var classLength = Object.keys(ClassName).length / 2; // divided by two as enum indexes count as members
+            var classId: number = (Math.floor(Math.random() * classLength));
             var className = ClassName[classId];
             var classObject = await Class.findOne().where('name').equals(className);
             var viewerClass = new ViewerClass({
+                _id: new ObjectId(),
                 viewer: viewer,
                 dateCreated: new Date(),
                 xp: 0, 
